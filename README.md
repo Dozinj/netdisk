@@ -19,7 +19,7 @@
 
 
 ## 接口文档
-[文档地址](xuzhihao.cn/swagger/index.html)  
+[文档地址](http://xuzhihao.cn/swagger/index.html)  
 
 
 
