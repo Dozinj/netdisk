@@ -14,11 +14,10 @@
 
 
 ## 接口文档
-[文档地址](xuzhihao.cn/swagger/index.html)  (这...服务器出了点问题，暂时没运行)
+[文档地址](http://xuzhihao.cn/swagger/index.html#/)  
 
 
 
 ## 架构设计
-
 
 
