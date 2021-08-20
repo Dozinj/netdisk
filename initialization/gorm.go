@@ -28,6 +28,7 @@ func MysqlGorm()*gorm.DB {
 
 func CreateTable(db *gorm.DB){
 	err:=db.AutoMigrate(
+		&model.User{},
 		&model.FileVideo{},
 		&model.FileImage{},
 		&model.ImageShare{},

@@ -54,4 +54,11 @@ func ExtractionCodeMD5Encryption(extractionCode string)string{
 	return base64.StdEncoding.EncodeToString(m.Sum(nil))
 }
 
+func Md5Encryption(password, salt string) string {
+	m := md5.New()
+	m.Write([]byte(password))
+	m.Write([]byte(salt))
+
+	return hex.EncodeToString(m.Sum(nil))
+}
 

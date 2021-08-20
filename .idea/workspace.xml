@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d434d2d3-de2a-4e66-a599-aabb7a6f9a1d" name="Default Changelist" comment="" />
+    <list default="true" id="d434d2d3-de2a-4e66-a599-aabb7a6f9a1d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/service/service_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/api_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/aliyun_oss.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/aliyun_oss.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/md5.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/md5.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +22,9 @@
     </option>
   </component>
   <component name="GOROOT" path="C:/Program Files/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
@@ -30,7 +40,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../1111" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../disk_rpc" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -46,7 +56,7 @@
       <recent name="D:\go\netdisk\initialization" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.Test_createIPath in netdisk/service">
+  <component name="RunManager" selected="Go Build.go build netdisk">
     <configuration name="go build netdisk" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="netdisk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -103,26 +113,26 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1629444153046">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1629456864378">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1629444153046" />
-    <state width="1493" height="212" key="GridCell.Tab.0.bottom" timestamp="1629455418500">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1629456864378" />
+    <state width="1493" height="212" key="GridCell.Tab.0.bottom" timestamp="1629456503009">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1629455418500" />
-    <state width="1493" height="212" key="GridCell.Tab.0.center" timestamp="1629455418500">
+    <state width="1493" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1629456503009" />
+    <state width="1493" height="212" key="GridCell.Tab.0.center" timestamp="1629456503009">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1629455418500" />
-    <state width="1493" height="212" key="GridCell.Tab.0.left" timestamp="1629455418499">
+    <state width="1493" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1629456503009" />
+    <state width="1493" height="212" key="GridCell.Tab.0.left" timestamp="1629456503009">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1629455418499" />
-    <state width="1493" height="212" key="GridCell.Tab.0.right" timestamp="1629455418500">
+    <state width="1493" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1629456503009" />
+    <state width="1493" height="212" key="GridCell.Tab.0.right" timestamp="1629456503009">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1629455418500" />
+    <state width="1493" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1629456503009" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1629308736668">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

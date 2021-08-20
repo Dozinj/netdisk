@@ -1,19 +1,18 @@
 package api
 
 import (
-	"errors"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
-	"netdisk/call"
 	"netdisk/global"
 	"netdisk/middleware"
 	"netdisk/model"
 	"netdisk/model/requests"
 	"netdisk/model/response"
+	"netdisk/service"
 	"netdisk/utils"
 )
 
@@ -32,11 +31,10 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	user := model.User{Username: R.Username, Password: R.Password}
-	_, Error, _ := call.Register(call.User(user)) //返回的Error为string类型
-	if Error != "" {
-		global.SugaredLogger.Error("注册失败", zap.Any("err:", errors.New(Error)))
-		response.Failed("注册失败:"+Error, c)
+	us:=service.GetUserService()
+
+	if err:=us.Register(R.Username,R.Password);err!=nil{
+		response.Failed("注册失败:"+err.Error(), c)
 		return
 	}
 	response.SuccessNoData("注册成功",c)
@@ -57,18 +55,21 @@ func Login(c *gin.Context){
 	if err:=utils.Validator(c,&R,utils.BindForm);err!=nil{
 		return
 	}
-	user,Error,_:=call.VerifyPassword(R.Username,R.Password)
-	if Error!=""{
-		response.Failed(Error,c)
+
+	us:=service.GetUserService()
+
+	user,err:=us.Login(R.Username,R.Password)
+	if err!=nil{
+		response.Failed(err.Error(),c)
 		return
 	}
 	//验证通过颁发token
-	TokenNext(model.User(user),c)
+	TokenNext(user,c)
 }
 
-func TokenNext(user model.User,c *gin.Context){
+func TokenNext(user *model.User,c *gin.Context){
 	claims:= model.CustomClaims{
-		ID:       user.ID,
+		ID:       int(user.ID),
 		Username: user.Username,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(48 * time.Hour).Unix(), // 过期时间 2天

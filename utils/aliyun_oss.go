@@ -30,8 +30,7 @@ type aliyunOSS struct{
 
 
 func GetAliyunOss()*aliyunOSS{
-	a:=new(aliyunOSS)
-	return a
+	return new(aliyunOSS)
 }
 
 var (
