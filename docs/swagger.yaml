@@ -1,0 +1,791 @@
+definitions:
+  response.LoginResp:
+    properties:
+      data:
+        $ref: '#/definitions/response.LoginRespData'
+        type: object
+      msg:
+        example: 登录成功
+        type: string
+    type: object
+  response.LoginRespData:
+    properties:
+      token:
+        description: token令牌
+        type: string
+      过期时间:
+        description: token 过期时间
+        type: string
+    type: object
+  response.OKWithoutData:
+    properties:
+      data:
+        type: object
+      msg:
+        example: xxx成功
+        type: string
+    type: object
+  response.RespGQrcode:
+    properties:
+      data:
+        $ref: '#/definitions/response.RespGQrcodeData'
+        type: object
+      msg:
+        example: 生成分享文件二维码成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespGQrcodeData:
+    properties:
+      二维码:
+        type: string
+    type: object
+  response.RespList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/response.RespListData'
+        type: array
+      msg:
+        example: 获取网盘信息成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespListData:
+    properties:
+      文件:
+        items:
+          $ref: '#/definitions/response.RespListFileData'
+        type: array
+      文件夹:
+        items:
+          $ref: '#/definitions/response.RespListFolderData'
+        type: array
+    type: object
+  response.RespListFileData:
+    properties:
+      authority:
+        description: authority:8.所有人可下载 9.仅获得链接的人可下载 10.仅自己见
+        example: 8
+        type: integer
+      上传时间:
+        example: 2021-08-20 07:00
+        type: string
+      修改时间:
+        example: 2021-08-20 09:00
+        type: string
+      大小:
+        example: 2MB
+        type: string
+      文件id:
+        example: 100
+        type: integer
+      文件名:
+        example: 打电动.jpeg
+        type: string
+    type: object
+  response.RespListFolderData:
+    properties:
+      上传时间:
+        example: 2021-08-20 17:42
+        type: string
+      修改时间:
+        example: 2021-08-20 18:53
+        type: string
+      文件夹名:
+        example: 学习
+        type: string
+    type: object
+  response.RespLocalSave:
+    properties:
+      data:
+        $ref: '#/definitions/response.RespLocalSaveData'
+        type: object
+      msg:
+        example: 获取下载地址成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespLocalSaveData:
+    properties:
+      资源地址:
+        type: string
+    type: object
+  response.RespShareFile:
+    properties:
+      data:
+        $ref: '#/definitions/response.RespShareFileData'
+        type: object
+      msg:
+        example: 获取分享文件信息成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespShareFileData:
+    properties:
+      分享者:
+        example: xzh
+        type: string
+      文件id:
+        example: "103"
+        type: string
+      文件上传时间:
+        example: "2021-08-20"
+        type: string
+      文件名称:
+        example: 吃饭.jpeg
+        type: string
+      文件大小:
+        example: 10MB
+        type: string
+    type: object
+  response.RespShareLink:
+    properties:
+      data:
+        $ref: '#/definitions/response.RespShareLinkData'
+        type: object
+      msg:
+        example: 分享链接生成成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespShareLinkData:
+    properties:
+      加密链接:
+        type: string
+      提取码:
+        type: string
+    type: object
+  response.RespUploadImage:
+    properties:
+      data:
+        $ref: '#/definitions/response.RespUploadImageData'
+        type: object
+      msg:
+        example: 图片上传成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespUploadImageData:
+    properties:
+      内存大小:
+        example: 1MB
+        type: string
+      图片id:
+        example: 102
+        type: integer
+      图片名称:
+        example: 恰饭.jpg
+        type: string
+    type: object
+  response.RespUploadVideo:
+    properties:
+      data:
+        $ref: '#/definitions/response.RespUploadVideoData'
+        type: object
+      msg:
+        example: 视频上传成功
+        type: string
+      status:
+        example: true
+        type: boolean
+    type: object
+  response.RespUploadVideoData:
+    properties:
+      内存大小:
+        example: 100MB
+        type: string
+      视频id:
+        example: 101
+        type: integer
+      视频名称:
+        example: 干饭.mp4
+        type: string
+    type: object
+  response.SystemFailed:
+    properties:
+      data:
+        type: object
+      msg:
+        example: status_internal_serverError
+        type: string
+      status:
+        example: false
+        type: boolean
+    type: object
+host: xuzhihao.cn
+info:
+  contact: {}
+  description: 接口文档
+  license: {}
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /disk/save:
+    get:
+      description: 将别人分享的文件上传至自己网盘
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category值 1代表video,2代表image
+        in: query
+        name: category
+        required: true
+        type: string
+      - description: 文件id
+        in: query
+        name: fileid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.OKWithoutData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 保存网盘
+      tags:
+      - 文件相关
+  /file/authority:
+    put:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category 1代表video,2代表image
+        in: body
+        name: category
+        required: true
+        schema:
+          type: string
+      - description: 文件id
+        in: body
+        name: fileid
+        required: true
+        schema:
+          type: string
+      - description: 新文件权限 authority:8.所有人可下载 9.仅获得链接的人可下载 10.仅自己见
+        in: body
+        name: authority
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.OKWithoutData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 修改文件权限
+      tags:
+      - 文件相关
+  /file/filename:
+    put:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: category 1为video,2为image,暂不支持修改文件格式
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category 1代表video,2代表image
+        in: body
+        name: category
+        required: true
+        schema:
+          type: string
+      - description: 文件id
+        in: body
+        name: fileid
+        required: true
+        schema:
+          type: string
+      - description: 新文件名
+        in: body
+        name: filename
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.OKWithoutData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 修改文件名
+      tags:
+      - 文件相关
+  /file/image:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 上传图片
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespUploadImage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 图片上传
+      tags:
+      - 文件相关
+  /file/image/path:
+    put:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件id
+        in: body
+        name: fileid
+        required: true
+        schema:
+          type: string
+      - description: 文件新路径 path需以`/`开头和结尾
+        in: body
+        name: file_path
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.OKWithoutData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 更改图片路径
+      tags:
+      - 文件相关
+  /file/video:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 若是文件大小大于50MB,则采用分片上传
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 上传视频
+        in: formData
+        name: video
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespUploadVideo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 视频上传
+      tags:
+      - 文件相关
+  /file/video/path:
+    put:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件id
+        in: body
+        name: fileid
+        required: true
+        schema:
+          type: string
+      - description: 文件新路径 path需以`/`开头和结尾
+        in: body
+        name: file_path
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.OKWithoutData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 更改视频路径
+      tags:
+      - 文件相关
+  /list/image:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 获取当前目录的所有文件和文件夹
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件目录 path需以`/`开头和结尾
+        in: body
+        name: path
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 图片目录
+      tags:
+      - 文件相关
+  /list/video:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 获取当前目录的所有文件和文件夹
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件目录 path需以`/`开头和结尾
+        in: body
+        name: path
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespList'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 视频目录
+      tags:
+      - 文件相关
+  /local/save:
+    get:
+      description: 将别人分享的文件下载到本地
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category 1代表video,2代表image
+        in: query
+        name: category
+        required: true
+        type: string
+      - description: 文件id
+        in: query
+        name: fileid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespLocalSave'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 保存本地
+      tags:
+      - 文件相关
+  /s/:link:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 返回要分享文件相关信息
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 分享链接
+        in: path
+        name: link
+        required: true
+        type: string
+      - description: 提取码
+        in: body
+        name: extraction_code
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespShareFile'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 解析链接
+      tags:
+      - 分享相关
+  /share/link:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 文件提取码可以不设置,若有提取码长度限制为4
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category值1代表video,2代表image
+        in: body
+        name: category
+        required: true
+        schema:
+          type: string
+      - description: 文件id
+        in: body
+        name: fileid
+        required: true
+        schema:
+          type: string
+      - description: 文件提取码
+        in: body
+        name: extraction_code
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespShareLink'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 获取分享链接
+      tags:
+      - 分享相关
+  /share/qrcode:
+    get:
+      description: 返回要分享文件相关信息 category 1为video,2为image
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category值1代表video,2代表image
+        in: query
+        name: category
+        required: true
+        type: string
+      - description: 分享者用户名
+        in: query
+        name: shareuser
+        required: true
+        type: string
+      - description: 文件id
+        in: query
+        name: fileid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespShareFile'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 解析二维码
+      tags:
+      - 分享相关
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: category 1为video,2为image
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文件类型  category值1代表video,2代表image
+        in: body
+        name: category
+        required: true
+        schema:
+          type: string
+      - description: 文件id
+        in: body
+        name: fileid
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespGQrcode'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 获取分享的二维码
+      tags:
+      - 分享相关
+  /user/login:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: 用户名
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: 用户密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.LoginResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 用户密码登录
+      tags:
+      - 用户相关
+  /user/register:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - description: '用户名 '
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: '用户密码 '
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.OKWithoutData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.SystemFailed'
+      summary: 用户注册账号
+      tags:
+      - 用户相关
+swagger: "2.0"

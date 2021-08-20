@@ -1,0 +1,1181 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "接口文档",
+        "title": "Swagger Example API",
+        "contact": {},
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "xuzhihao.cn",
+    "paths": {
+        "/disk/save": {
+            "get": {
+                "description": "将别人分享的文件上传至自己网盘",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "保存网盘",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文件类型  category值 1代表video,2代表image",
+                        "name": "category",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.OKWithoutData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/authority": {
+            "put": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "修改文件权限",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件类型  category 1代表video,2代表image",
+                        "name": "category",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "新文件权限 authority:8.所有人可下载 9.仅获得链接的人可下载 10.仅自己见",
+                        "name": "authority",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.OKWithoutData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/filename": {
+            "put": {
+                "description": "category 1为video,2为image,暂不支持修改文件格式",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "修改文件名",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件类型  category 1代表video,2代表image",
+                        "name": "category",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "新文件名",
+                        "name": "filename",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.OKWithoutData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/image": {
+            "post": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "图片上传",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "上传图片",
+                        "name": "image",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespUploadImage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/image/path": {
+            "put": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "更改图片路径",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件新路径 path需以`/`开头和结尾",
+                        "name": "file_path",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.OKWithoutData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/video": {
+            "post": {
+                "description": "若是文件大小大于50MB,则采用分片上传",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "视频上传",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "上传视频",
+                        "name": "video",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespUploadVideo"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/video/path": {
+            "put": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "更改视频路径",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件新路径 path需以`/`开头和结尾",
+                        "name": "file_path",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.OKWithoutData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/list/image": {
+            "post": {
+                "description": "获取当前目录的所有文件和文件夹",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "图片目录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件目录 path需以`/`开头和结尾",
+                        "name": "path",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespList"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/list/video": {
+            "post": {
+                "description": "获取当前目录的所有文件和文件夹",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "视频目录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件目录 path需以`/`开头和结尾",
+                        "name": "path",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespList"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/local/save": {
+            "get": {
+                "description": "将别人分享的文件下载到本地",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文件相关"
+                ],
+                "summary": "保存本地",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文件类型  category 1代表video,2代表image",
+                        "name": "category",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespLocalSave"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/s/:link": {
+            "post": {
+                "description": "返回要分享文件相关信息",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "分享相关"
+                ],
+                "summary": "解析链接",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "分享链接",
+                        "name": "link",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "提取码",
+                        "name": "extraction_code",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespShareFile"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/share/link": {
+            "post": {
+                "description": "文件提取码可以不设置,若有提取码长度限制为4",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "分享相关"
+                ],
+                "summary": "获取分享链接",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件类型  category值1代表video,2代表image",
+                        "name": "category",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件提取码",
+                        "name": "extraction_code",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespShareLink"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/share/qrcode": {
+            "get": {
+                "description": "返回要分享文件相关信息 category 1为video,2为image",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "分享相关"
+                ],
+                "summary": "解析二维码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文件类型  category值1代表video,2代表image",
+                        "name": "category",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "分享者用户名",
+                        "name": "shareuser",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespShareFile"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "category 1为video,2为image",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "分享相关"
+                ],
+                "summary": "获取分享的二维码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "文件类型  category值1代表video,2代表image",
+                        "name": "category",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "文件id",
+                        "name": "fileid",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.RespGQrcode"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户相关"
+                ],
+                "summary": "用户密码登录",
+                "parameters": [
+                    {
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "用户密码",
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.LoginResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register": {
+            "post": {
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户相关"
+                ],
+                "summary": "用户注册账号",
+                "parameters": [
+                    {
+                        "description": "用户名 ",
+                        "name": "username",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "用户密码 ",
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.OKWithoutData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.SystemFailed"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "response.LoginResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.LoginRespData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "登录成功"
+                }
+            }
+        },
+        "response.LoginRespData": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "description": "token令牌",
+                    "type": "string"
+                },
+                "过期时间": {
+                    "description": "token 过期时间",
+                    "type": "string"
+                }
+            }
+        },
+        "response.OKWithoutData": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "xxx成功"
+                }
+            }
+        },
+        "response.RespGQrcode": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.RespGQrcodeData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "生成分享文件二维码成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespGQrcodeData": {
+            "type": "object",
+            "properties": {
+                "二维码": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.RespList": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.RespListData"
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "获取网盘信息成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespListData": {
+            "type": "object",
+            "properties": {
+                "文件": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.RespListFileData"
+                    }
+                },
+                "文件夹": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.RespListFolderData"
+                    }
+                }
+            }
+        },
+        "response.RespListFileData": {
+            "type": "object",
+            "properties": {
+                "authority": {
+                    "description": "authority:8.所有人可下载 9.仅获得链接的人可下载 10.仅自己见",
+                    "type": "integer",
+                    "example": 8
+                },
+                "上传时间": {
+                    "type": "string",
+                    "example": "2021-08-20 07:00"
+                },
+                "修改时间": {
+                    "type": "string",
+                    "example": "2021-08-20 09:00"
+                },
+                "大小": {
+                    "type": "string",
+                    "example": "2MB"
+                },
+                "文件id": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "文件名": {
+                    "type": "string",
+                    "example": "打电动.jpeg"
+                }
+            }
+        },
+        "response.RespListFolderData": {
+            "type": "object",
+            "properties": {
+                "上传时间": {
+                    "type": "string",
+                    "example": "2021-08-20 17:42"
+                },
+                "修改时间": {
+                    "type": "string",
+                    "example": "2021-08-20 18:53"
+                },
+                "文件夹名": {
+                    "type": "string",
+                    "example": "学习"
+                }
+            }
+        },
+        "response.RespLocalSave": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.RespLocalSaveData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "获取下载地址成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespLocalSaveData": {
+            "type": "object",
+            "properties": {
+                "资源地址": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.RespShareFile": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.RespShareFileData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "获取分享文件信息成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespShareFileData": {
+            "type": "object",
+            "properties": {
+                "分享者": {
+                    "type": "string",
+                    "example": "xzh"
+                },
+                "文件id": {
+                    "type": "string",
+                    "example": "103"
+                },
+                "文件上传时间": {
+                    "type": "string",
+                    "example": "2021-08-20"
+                },
+                "文件名称": {
+                    "type": "string",
+                    "example": "吃饭.jpeg"
+                },
+                "文件大小": {
+                    "type": "string",
+                    "example": "10MB"
+                }
+            }
+        },
+        "response.RespShareLink": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.RespShareLinkData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "分享链接生成成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespShareLinkData": {
+            "type": "object",
+            "properties": {
+                "加密链接": {
+                    "type": "string"
+                },
+                "提取码": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.RespUploadImage": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.RespUploadImageData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "图片上传成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespUploadImageData": {
+            "type": "object",
+            "properties": {
+                "内存大小": {
+                    "type": "string",
+                    "example": "1MB"
+                },
+                "图片id": {
+                    "type": "integer",
+                    "example": 102
+                },
+                "图片名称": {
+                    "type": "string",
+                    "example": "恰饭.jpg"
+                }
+            }
+        },
+        "response.RespUploadVideo": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/response.RespUploadVideoData"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "视频上传成功"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "response.RespUploadVideoData": {
+            "type": "object",
+            "properties": {
+                "内存大小": {
+                    "type": "string",
+                    "example": "100MB"
+                },
+                "视频id": {
+                    "type": "integer",
+                    "example": 101
+                },
+                "视频名称": {
+                    "type": "string",
+                    "example": "干饭.mp4"
+                }
+            }
+        },
+        "response.SystemFailed": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "msg": {
+                    "type": "string",
+                    "example": "status_internal_serverError"
+                },
+                "status": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        }
+    }
+}
