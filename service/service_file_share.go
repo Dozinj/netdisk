@@ -166,7 +166,7 @@ func (fs *fileService)GenerateSharingLink(gL *requests.GLink,username string)(st
 	basep:=base64.URLEncoding.EncodeToString(p)
 
 	admin := global.Config.Section("admin")
-	domain := "http://" + admin.Key("host").String() + ":" + admin.Key("port").String()
+	domain := "http://" + admin.Key("host").String()
 	url:=domain+"/s/"+basep
 	return url, nil
 }
